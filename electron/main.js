@@ -53,8 +53,9 @@ async function loadWikiVehicle(model) {
     const itemGroups = [];
     let cursor = 0;
     while (true) { const found = jsonAfter(raw.flight, '"items":', cursor); if (!found) break; cursor = found.end; if (Array.isArray(found.value) && found.value.length) itemGroups.push(found.value); }
-    const vinyls = itemGroups.flat().filter(x => Array.isArray(x.images) && x.images.length);
-    const bodykits = itemGroups.flat().filter(x => !Array.isArray(x.images) && (x.image || x.name));
+    const wikiItems = itemGroups.flat().filter(Boolean);
+    const vinyls = wikiItems.filter(x => Array.isArray(x.images) && x.images.length);
+    const bodykits = wikiItems.filter(x => !Array.isArray(x.images) && (x.image || x.name));
     const info = { model, title: raw.title, image: raw.image, tiles, tuning, sources, vinyls, bodykits, paint: parsePaint(raw.text), sourceUrl: `https://fletcher-wiki.com/majestic/vehicles/${model}` };
     wikiCache.set(model, info);
     return info;

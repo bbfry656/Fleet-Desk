@@ -1,0 +1,10 @@
+.wiki-module-tabs{position:sticky;top:0;z-index:4;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;padding:7px;margin-bottom:14px;border:1px solid var(--line);border-radius:14px;background:rgba(12,15,21,.96);backdrop-filter:blur(12px)}
+.wiki-module-tabs button{min-height:42px;padding:8px 12px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--muted);font:inherit;font-weight:700;cursor:pointer;transition:.16s ease}
+.wiki-module-tabs button:hover{color:var(--text);background:#171b24}
+.wiki-module-tabs button.active{color:#fff;border-color:#bd38dc;background:linear-gradient(135deg,#dc2baa,#7654ff);box-shadow:0 7px 22px rgba(190,61,226,.18)}
+.wiki-pane{display:none;animation:wiki-pane-in .16s ease}
+.wiki-pane.active{display:block}
+.wiki-origins-head{margin-top:18px;margin-bottom:0}
+.wiki-pane>.wiki-panel+.wiki-panel{margin-top:14px}
+@keyframes wiki-pane-in{from{opacity:.35;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media(max-width:780px){.wiki-module-tabs{grid-template-columns:repeat(2,minmax(0,1fr));position:static}.wiki-module-tabs button{font-size:12px}}
