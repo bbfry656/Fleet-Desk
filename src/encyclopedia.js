@@ -1,12 +1,13 @@
 const wikiCatalog = window.VEHICLE_CATALOG || [];
 let wikiSelected = '';
+let wikiListLimit = 120;
 const wikiEsc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const wikiMoney = value => value ? '$' + Number(value).toLocaleString('ru-RU') : '—';
 function renderWikiList() {
   const q = document.querySelector('#wikiSearch').value.trim().toLowerCase();
   const found = wikiCatalog.filter(x => `${x.name} ${x.id}`.toLowerCase().includes(q));
-  const shown = found.slice(0, 120);
-  document.querySelector('#wikiList').innerHTML = shown.map(x => `<button class="wiki-list-item ${x.id===wikiSelected?'active':''}" data-wiki-id="${wikiEsc(x.id)}"><img loading="lazy" src="${wikiEsc(x.image)}" alt=""><span><b>${wikiEsc(x.name)}</b><small>${wikiEsc(x.id)}</small></span></button>`).join('') + (found.length>shown.length?`<span class="wiki-list-more">Показаны первые ${shown.length} из ${found.length} — уточните поиск</span>`:'');
+  const shown = found.slice(0, wikiListLimit);
+  document.querySelector('#wikiList').innerHTML = shown.map(x => `<button class="wiki-list-item ${x.id===wikiSelected?'active':''}" data-wiki-id="${wikiEsc(x.id)}"><img loading="lazy" src="${wikiEsc(x.image)}" alt=""><span><b>${wikiEsc(x.name)}</b><small>${wikiEsc(x.id)}</small></span></button>`).join('') + (found.length>shown.length?`<span class="wiki-list-more">Показано ${shown.length} из ${found.length} — прокрутите ниже</span>`:'');
 }
 function tuneBlock(name, levels) {
   if (!Array.isArray(levels) || !levels.length) return '';
@@ -49,7 +50,8 @@ function renderWikiInfoV2(data) {
   const visualPane=`${gallery('Обвесы и детали',data.bodykits)}${gallery('Винилы',data.vinyls)}`||'<div class="wiki-welcome"><b>Обвесов и винилов нет</b><span>Для этой модели дополнительные элементы не указаны.</span></div>';
   document.querySelector('#wikiContent').innerHTML=`<div class="wiki-module-tabs"><button class="active" data-wiki-tab="overview">Обзор</button><button data-wiki-tab="tuning">Тюнинг</button><button data-wiki-tab="paint">Покраска</button><button data-wiki-tab="visual">Обвесы и винилы</button></div><div class="wiki-pane active" data-wiki-pane="overview">${overview}</div><div class="wiki-pane" data-wiki-pane="tuning">${tuningPane}</div><div class="wiki-pane" data-wiki-pane="paint">${paintPane}</div><div class="wiki-pane" data-wiki-pane="visual">${visualPane}</div><div class="wiki-attribution"><span>Данные Fletcher Wiki; фактическая свалка из вашей карточки имеет приоритет.</span><a href="${wikiEsc(data.sourceUrl)}" target="_blank" rel="noreferrer">Открыть источник ↗</a></div>`;
 }
-document.querySelector('#wikiSearch').addEventListener('input',renderWikiList);
+document.querySelector('#wikiSearch').addEventListener('input',()=>{wikiListLimit=120;renderWikiList()});
 document.querySelector('#wikiList').addEventListener('click',e=>{const b=e.target.closest('[data-wiki-id]');if(b)openWikiVehicle(b.dataset.wikiId)});
+document.querySelector('#wikiList').addEventListener('scroll',e=>{const list=e.currentTarget;if(list.scrollTop+list.clientHeight<list.scrollHeight-100)return;const q=document.querySelector('#wikiSearch').value.trim().toLowerCase(),total=wikiCatalog.filter(x=>`${x.name} ${x.id}`.toLowerCase().includes(q)).length;if(wikiListLimit>=total)return;const top=list.scrollTop;wikiListLimit=Math.min(wikiListLimit+120,total);renderWikiList();list.scrollTop=top});
 document.querySelector('#wikiContent').addEventListener('click',e=>{const tab=e.target.closest('[data-wiki-tab]');if(!tab)return;document.querySelectorAll('[data-wiki-tab]').forEach(x=>x.classList.toggle('active',x===tab));document.querySelectorAll('[data-wiki-pane]').forEach(x=>x.classList.toggle('active',x.dataset.wikiPane===tab.dataset.wikiTab))});
 renderWikiList();
