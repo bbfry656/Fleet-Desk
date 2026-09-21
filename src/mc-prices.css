@@ -1,0 +1,5 @@
+.purchase-currency{display:grid;gap:8px;margin:14px 0 4px}
+.purchase-currency>span{color:#aeb6c8;font-size:13px;font-weight:700}
+.purchase-currency small{color:#f0ae60;line-height:1.45}
+.mc-badge{position:absolute;right:12px;top:12px;z-index:2;border:1px solid rgba(240,174,96,.45);border-radius:999px;background:#261d12;color:#ffc46e;padding:4px 8px;font-size:11px;font-weight:900;letter-spacing:.08em}
+.form-grid input[readonly]{color:#cbd3e4;background:#10131a;cursor:default}
