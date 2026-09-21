@@ -1,0 +1,222 @@
+:root {
+  --bg: #08090d;
+  --panel: #111319;
+  --panel2: #181a22;
+  --line: #2a2d37;
+  --muted: #989aa7;
+  --text: #f7f7fa;
+  --accent: #e72d89;
+  --accent2: #8b3dff;
+  --green: #31d3a5;
+  --red: #ff5573;
+  --amber: #ffc35c;
+}
+
+html {
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.brand-mark,
+.primary {
+  background: linear-gradient(135deg, #f0368e, #9147ff);
+}
+
+.stats { grid-template-columns: repeat(3, 1fr); }
+
+.profile-box {
+  padding: 12px;
+  margin: -17px 0 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0d0f15;
+}
+
+.profile-box>small {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.profile-box>small:not(:first-child) { margin-top: 11px; }
+.profile-box .server-select { width: 100%; }
+
+.update-box { display: grid; gap: 7px; margin-bottom: 4px; }
+.update-box small { line-height: 1.35; }
+.update-box button { font-size: 12px; padding: 9px 10px; }
+
+.profile-box>div {
+  display: grid;
+  grid-template-columns: 1fr 35px;
+  gap: 7px;
+}
+
+.profile-box select,
+.profile-box button {
+  min-width: 0;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #171a22;
+  color: #fff;
+  padding: 0 9px;
+  font: inherit;
+  font-weight: 700;
+}
+
+.photo-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 9px;
+}
+
+.catalog-modal {
+  width: min(1120px, calc(100vw - 50px));
+}
+
+.catalog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.catalog-filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.catalog-filters button,
+.rental-switch button {
+  border: 1px solid var(--line);
+  background: #171920;
+  color: var(--muted);
+  border-radius: 9px;
+  padding: 9px 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.catalog-filters button.active,
+.rental-switch button.active {
+  color: #fff;
+  border-color: #ef3a91;
+  background: linear-gradient(135deg, rgba(231,45,137,.28), rgba(139,61,255,.28));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(130px, 1fr));
+  grid-auto-rows: 160px;
+  align-content: start;
+  gap: 10px;
+  min-height: 520px;
+}
+
+.catalog-card {
+  border: 1px solid var(--line);
+  background: #0c0e13;
+  color: #fff;
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  transition: .18s ease;
+  height: 160px;
+  align-self: start;
+}
+
+.catalog-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 25px rgba(231,45,137,.14);
+}
+
+.catalog-card>div {
+  height: 105px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 80%, rgba(231,45,137,.13), transparent 65%), #171a22;
+  position: relative;
+}
+
+.catalog-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+.catalog-card>div span {
+  position: absolute;
+  color: #74798a;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.catalog-card b,
+.catalog-card small {
+  display: block;
+  padding: 0 10px;
+}
+
+.catalog-card b {
+  font-size: 13px;
+  margin-top: 9px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.catalog-card small {
+  color: var(--muted);
+  margin: 4px 0 10px;
+}
+
+.catalog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  color: var(--muted);
+}
+
+.catalog-pages {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.catalog-pages button {
+  padding: 8px 13px;
+}
+
+.rental-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 15px;
+  color: #b7bdca;
+  font-weight: 800;
+}
+
+.rental-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  min-width: 330px;
+}
+
+@media (max-width: 1250px) {
+  .catalog-grid { grid-template-columns: repeat(4, minmax(130px, 1fr)); }
+}
