@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const fs = require('fs');
@@ -9,6 +9,57 @@ if (!fs.existsSync(newUserData) && fs.existsSync(oldUserData)) fs.cpSync(oldUser
 app.setPath('userData', newUserData);
 
 let mainWindow;
+const wikiCache = new Map();
+function jsonAfter(text, marker, from = 0) {
+  const markerAt = text.indexOf(marker, from);
+  if (markerAt < 0) return null;
+  let start = markerAt + marker.length;
+  while (start < text.length && !['[', '{'].includes(text[start])) start++;
+  if (start >= text.length) return null;
+  const open = text[start], close = open === '[' ? ']' : '}';
+  let depth = 0, quoted = false, escaped = false;
+  for (let i = start; i < text.length; i++) {
+    const char = text[i];
+    if (quoted) { if (escaped) escaped = false; else if (char === '\\') escaped = true; else if (char === '"') quoted = false; continue; }
+    if (char === '"') quoted = true;
+    else if (char === open) depth++;
+    else if (char === close && --depth === 0) { try { return { value: JSON.parse(text.slice(start, i + 1)), end: i + 1 }; } catch { return null; } }
+  }
+  return null;
+}
+function parsePaint(text) {
+  const labels = ['Яркий металлик','Металлик','Насыщ. металлик','Тёмный металлик','Матовый','Матовый металл','Сатин','Металл','Теневой хром','Чистый хром'];
+  const lines = text.split('\n').map(x => x.trim()).filter(Boolean);
+  const result = { main: [], extra: [], coins: [] };
+  let group = '';
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i] === 'Основная покраска') group = 'main';
+    else if (lines[i] === 'Дополнительная покраска') group = 'extra';
+    else if (lines[i] === 'Основная покраска за коины') group = 'coins';
+    else if (group && labels.includes(lines[i])) { const raw = lines[i + 1] || ''; const value = Number(raw.replace(/\D/g, '')); if (value) result[group].push({ name: lines[i], value }); }
+  }
+  return result;
+}
+async function loadWikiVehicle(model) {
+  if (!/^[a-z0-9_-]+$/i.test(model)) throw new Error('Некорректный ID транспорта');
+  if (wikiCache.has(model)) return wikiCache.get(model);
+  const wikiWindow = new BrowserWindow({ show: false, webPreferences: { contextIsolation: true, nodeIntegration: false, sandbox: true } });
+  try {
+    await wikiWindow.loadURL(`https://fletcher-wiki.com/majestic/vehicles/${model}`);
+    const raw = await wikiWindow.webContents.executeJavaScript(`(() => { const flight=[...document.scripts].map(s=>{const t=s.textContent.trim();if(!t.startsWith('self.__next_f.push('))return '';try{return JSON.parse(t.slice(19,-1))[1]||''}catch{return ''}}).join('\\n');return {text:document.body.innerText,flight,title:document.querySelector('h1')?.innerText||document.title.split(' на Majestic')[0],image:document.querySelector('meta[property="og:image"]')?.content||''}; })()`);
+    const tiles = jsonAfter(raw.flight, '"tiles":')?.value || [];
+    const tuning = jsonAfter(raw.flight, '"prices":')?.value || {};
+    const sources = jsonAfter(raw.flight, '"sources":')?.value || [];
+    const itemGroups = [];
+    let cursor = 0;
+    while (true) { const found = jsonAfter(raw.flight, '"items":', cursor); if (!found) break; cursor = found.end; if (Array.isArray(found.value) && found.value.length) itemGroups.push(found.value); }
+    const vinyls = itemGroups.flat().filter(x => Array.isArray(x.images) && x.images.length);
+    const bodykits = itemGroups.flat().filter(x => !Array.isArray(x.images) && (x.image || x.name));
+    const info = { model, title: raw.title, image: raw.image, tiles, tuning, sources, vinyls, bodykits, paint: parsePaint(raw.text), sourceUrl: `https://fletcher-wiki.com/majestic/vehicles/${model}` };
+    wikiCache.set(model, info);
+    return info;
+  } finally { if (!wikiWindow.isDestroyed()) wikiWindow.destroy(); }
+}
 const updateStatus = (status, detail = '') => mainWindow?.webContents.send('update:status', { status, detail });
 autoUpdater.autoDownload = true;
 autoUpdater.autoInstallOnAppQuit = true;
@@ -35,6 +86,7 @@ function createWindow() {
     }
   });
   mainWindow = win;
+  win.webContents.setWindowOpenHandler(({ url }) => { if (/^https:\/\//i.test(url)) shell.openExternal(url); return { action: 'deny' }; });
   win.loadFile(path.join(__dirname, '..', 'src', 'index.html'));
 }
 
@@ -76,6 +128,7 @@ app.whenReady().then(() => {
     fs.writeFileSync(result.filePath, Buffer.from(base64.split(',')[1], 'base64'));
     return result.filePath;
   });
+  ipcMain.handle('wiki:vehicle', async (_event, model) => loadWikiVehicle(model));
 
   createWindow();
   if (app.isPackaged) setTimeout(() => autoUpdater.checkForUpdates().catch(error => updateStatus('error', error?.message)), 5000);

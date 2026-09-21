@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="extra.css"><link rel="stylesheet" href="mc-prices.css">
   <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="encyclopedia.css">
 </head>
 <body>
   <aside class="sidebar">
@@ -18,6 +19,7 @@
       <button class="nav-item" data-view="garage"><span>▦</span>Гараж</button>
       <button class="nav-item" data-view="rentals"><span>◷</span>Аренда</button>
       <button class="nav-item" data-view="deals"><span>↗</span>Сделки</button>
+      <button class="nav-item" data-view="encyclopedia"><span>◈</span>Энциклопедия</button>
       <button class="nav-item" data-view="photos"><span>▣</span>Фото</button>
     </nav>
     <div class="side-foot">
@@ -68,6 +70,11 @@
         <aside class="panel crop-controls"><p class="eyebrow">НАСТРОЙКИ</p><h3>Готовое изображение</h3><label>Формат<select id="cropFormat"><option value="image/jpeg">JPG — меньше вес</option><option value="image/png">PNG — лучше качество</option></select></label><label>Ширина<select id="cropWidth"><option value="1280">1280 px</option><option value="1600">1600 px</option><option value="1920">1920 px</option><option value="960">960 px</option></select></label><label>Соотношение<select id="cropRatio"><option value="1.777777">16:9</option><option value="1.6">16:10</option><option value="1.333333">4:3</option><option value="1">1:1</option><option value="0">Свободное</option></select></label><label>Качество <strong id="qualityValue">82%</strong><input id="cropQuality" type="range" min="35" max="100" value="82"></label><div class="crop-meta"><span>Выходной размер</span><b id="cropSize">—</b></div><button class="primary wide" id="saveCrop" disabled>Сохранить в папку</button><button class="ghost wide" id="useCropAsPhoto" disabled>Использовать для машины</button><small class="crop-help">Мышью выделите нужную область. Готовый файл сохранится отдельно, оригинал не изменится.</small></aside>
       </div>
     </section>
+
+    <section class="view" id="encyclopediaView">
+      <div class="wiki-toolbar"><div><p class="eyebrow">БАЗА ЗНАНИЙ</p><h2>Энциклопедия транспорта</h2></div><div class="search wiki-search"><span>⌕</span><input id="wikiSearch" placeholder="Марка, модель или ID транспорта"></div></div>
+      <div class="wiki-layout"><aside class="panel wiki-list" id="wikiList"></aside><div class="wiki-content" id="wikiContent"><div class="wiki-welcome"><b>Выберите транспорт</b><span>Характеристики, цены, тюнинг, покраска, обвесы и винилы — в одной чистой карточке.</span></div></div></div>
+    </section>
   </main>
 
   <dialog id="vehicleDialog"><form id="vehicleForm" class="modal"><div class="modal-head"><div><p class="eyebrow">ГАРАЖ</p><h2 id="vehicleDialogTitle">Добавить транспорт</h2></div><button type="button" class="icon-btn" data-close-dialog aria-label="Закрыть">×</button></div><input type="hidden" name="editId"><input type="hidden" name="catalogId"><input type="hidden" name="vehicleType"><div class="photo-picker"><input type="file" id="vehiclePhoto" accept="image/*" hidden><button type="button" class="photo-preview" id="photoPreview"><span>＋</span><b>Выбрать транспорт из каталога</b><small>956 позиций</small></button><input type="hidden" id="photoData"><div class="photo-actions"><button type="button" class="ghost" id="openCatalogBtn">Открыть каталог</button><button type="button" class="ghost" id="uploadOwnPhoto">Своя фотография</button></div></div><div class="purchase-currency"><span>Валюта покупки</span><div class="rental-switch"><button type="button" class="active" data-purchase-currency="money">Доллары ($)</button><button type="button" data-purchase-currency="mc">Majestic Coin (MC)</button></div><input type="hidden" name="purchaseCurrency" value="money"><small id="mcPurchaseHint" hidden>MC-технику нельзя продать игроку — доступна только продажа на свалку.</small></div><div class="form-grid"><label>Модель<input name="name" required readonly placeholder="Выберите из каталога"></label><label>Номер<input name="plate" placeholder="A777AA"></label><label id="purchasePriceLabel">Цена покупки, $<input name="purchase" type="text" inputmode="numeric" data-money required placeholder="4 500 000"></label><label>Государственная цена<input name="govPrice" type="text" inputmode="numeric" data-money placeholder="5 000 000"></label><label>Цена свалки<input name="scrap" type="text" inputmode="numeric" data-money placeholder="2 350 000"></label><label>Статус<select name="status"><option value="available">Свободна</option><option value="sale">На продаже</option><option value="personal">Личная</option></select></label></div><div class="modal-actions"><button type="button" class="ghost" data-close-dialog>Отмена</button><button type="submit" class="primary">Сохранить транспорт</button></div></form></dialog>
@@ -83,6 +90,6 @@
   <dialog id="balanceDialog"><form id="balanceForm" class="modal compact-modal"><div class="modal-head"><div><p class="eyebrow">ФИНАНСЫ</p><h2>Изменить баланс</h2></div><button type="button" class="icon-btn" data-close-dialog aria-label="Закрыть">×</button></div><label>Свободный баланс<input name="amount" type="text" inputmode="numeric" data-money required></label><div class="modal-actions"><button type="button" class="ghost" data-close-dialog>Отмена</button><button type="submit" class="primary">Сохранить</button></div></form></dialog>
 
   <div class="toast" id="toast"></div>
-  <script src="catalog.js"></script><script src="catalog-categories.js"></script><script src="vehicle-prices.js"></script><script src="app.js"></script>
+  <script src="catalog.js"></script><script src="catalog-categories.js"></script><script src="vehicle-prices.js"></script><script src="app.js"></script><script src="encyclopedia.js"></script>
 </body>
 </html>
