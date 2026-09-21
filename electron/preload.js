@@ -5,7 +5,7 @@ contextBridge.exposeInMainWorld('desktop', {
   openBackup: () => ipcRenderer.invoke('backup:open'),
   saveImage: (payload) => ipcRenderer.invoke('image:save', payload),
   getVehicleInfo: (model) => ipcRenderer.invoke('wiki:vehicle', model),
-  getWikiCatalog: (kind, query) => ipcRenderer.invoke('wiki:catalog', { kind, query }),
+  getWikiCatalog: (kind, query, page = 1) => ipcRenderer.invoke('wiki:catalog', { kind, query, page }),
   checkForUpdates: () => ipcRenderer.invoke('update:check'),
   installUpdate: () => ipcRenderer.send('update:install'),
   onUpdateStatus: (callback) => ipcRenderer.on('update:status', (_event, payload) => callback(payload))
