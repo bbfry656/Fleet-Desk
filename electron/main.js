@@ -10,6 +10,8 @@ app.setPath('userData', newUserData);
 
 let mainWindow;
 const wikiCache = new Map();
+const wikiCatalogCache = new Map();
+const WIKI_CATALOGS = {items:'items',clothes:'clothes',homes:'doma_i_kvartiry',offices:'ofisy_i_sklady',businesses:'biznesy',atms:'bankomaty'};
 function jsonAfter(text, marker, from = 0) {
   const markerAt = text.indexOf(marker, from);
   if (markerAt < 0) return null;
@@ -60,6 +62,15 @@ async function loadWikiVehicle(model) {
     wikiCache.set(model, info);
     return info;
   } finally { if (!wikiWindow.isDestroyed()) wikiWindow.destroy(); }
+}
+async function loadWikiCatalog(kind, query='') {
+  const slug=WIKI_CATALOGS[kind];if(!slug)throw new Error('Неизвестный раздел энциклопедии');
+  const cacheKey=`${kind}:${String(query).trim().toLowerCase()}`,cached=wikiCatalogCache.get(cacheKey);if(cached&&Date.now()-cached.at<10*60*1000)return cached.value;
+  const wikiWindow=new BrowserWindow({show:false,webPreferences:{contextIsolation:true,nodeIntegration:false,sandbox:true}});
+  try{await wikiWindow.loadURL(`https://fletcher-wiki.com/majestic/${slug}`);if(query){await wikiWindow.webContents.executeJavaScript(`(()=>{const el=[...document.querySelectorAll('input')].find(x=>/поиск/i.test(x.placeholder||''));if(!el)return;const set=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;set.call(el,${JSON.stringify(String(query))});el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}))})()`);await new Promise(r=>setTimeout(r,900))}
+    const value=await wikiWindow.webContents.executeJavaScript(`(()=>{const kind=${JSON.stringify(kind)},slug=${JSON.stringify(slug)};let nodes=[...document.querySelectorAll(kind==='items'?'.fw-list-item':'article')];if(!nodes.length&&kind==='clothes'){const seen=new Set();nodes=[...document.querySelectorAll('a[href^="/majestic/clothes/"]')].map(a=>{let n=a;while(n.parentElement&&(!n.querySelector('img')||(n.innerText||'').trim().length<15))n=n.parentElement;return n}).filter(n=>{if(seen.has(n))return false;seen.add(n);return true})}return nodes.slice(0,60).map((n,index)=>{const lines=(n.innerText||'').split('\\n').map(x=>x.trim()).filter(Boolean),link=n.querySelector('a[href]')?.getAttribute('href')||'',image=n.querySelector('img')?.src||'',price=(n.innerText||'').match(/\\$\\s*[\\d\\s]+/)?.[0]||'',id=(n.innerText||'').match(/ID:\\s*(\\d+)/i)?.[1]||link.split('/').filter(Boolean).pop()||String(index);return{id,name:lines[0]||('Объект '+(index+1)),image,price,details:lines.filter(x=>x!==lines[0]&&x!=='Подробнее'&&x!=='На карте').slice(0,8),sourceUrl:link?new URL(link,location.origin).href:location.href}})})()`);
+    const result={kind,query,items:value,sourceUrl:`https://fletcher-wiki.com/majestic/${slug}`,updatedAt:new Date().toISOString()};wikiCatalogCache.set(cacheKey,{at:Date.now(),value:result});return result;
+  }finally{if(!wikiWindow.isDestroyed())wikiWindow.destroy()}
 }
 const updateStatus = (status, detail = '') => mainWindow?.webContents.send('update:status', { status, detail });
 autoUpdater.autoDownload = true;
@@ -130,6 +141,7 @@ app.whenReady().then(() => {
     return result.filePath;
   });
   ipcMain.handle('wiki:vehicle', async (_event, model) => loadWikiVehicle(model));
+  ipcMain.handle('wiki:catalog', async (_event, payload) => loadWikiCatalog(payload?.kind,payload?.query));
 
   createWindow();
   if (app.isPackaged) setTimeout(() => autoUpdater.checkForUpdates().catch(error => updateStatus('error', error?.message)), 5000);
