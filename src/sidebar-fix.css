@@ -1,4 +1,5 @@
 .sidebar {
+  width: 320px;
   height: 100vh;
   min-height: 0;
   overflow-y: auto;
@@ -6,6 +7,8 @@
   overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: #3b4354 transparent;
+  padding: 26px 18px 18px;
+  transition: width .34s cubic-bezier(.22,.8,.24,1), padding .34s cubic-bezier(.22,.8,.24,1), box-shadow .25s ease;
 }
 
 .sidebar::-webkit-scrollbar { width: 7px; }
@@ -19,3 +22,15 @@
 .brand,
 .side-foot { flex: 0 0 auto; }
 .side-foot { padding-bottom: 2px; }
+main { margin-left:320px; transition:margin-left .34s cubic-bezier(.22,.8,.24,1); }
+.sidebar .nav-item { min-height:52px; font-size:16px; white-space:nowrap; overflow:hidden; transition:padding .3s ease,background .2s ease,color .2s ease,font-size .25s ease; }
+.sidebar .nav-item span { flex:0 0 30px; width:30px; font-size:24px; text-align:center; }
+.sidebar-collapsed .sidebar { width:82px; padding-left:12px; padding-right:12px; box-shadow:12px 0 35px rgba(0,0,0,.16); }
+.sidebar-collapsed main { margin-left:82px; }
+.sidebar-collapsed .sidebar .nav-item { padding-left:13px; padding-right:13px; gap:0; font-size:0; }
+.sidebar-collapsed .sidebar .nav-item span { font-size:25px; }
+.sidebar-collapsed .account-head { grid-template-columns:56px 0; gap:0; }
+.sidebar-collapsed .account-card { width:56px; padding:6px; grid-template-columns:44px 0; gap:0; overflow:hidden; border-color:transparent; background:transparent; }
+.sidebar-collapsed .account-card > span:nth-child(2),.sidebar-collapsed .account-logout { opacity:0; pointer-events:none; width:0; overflow:hidden; }
+.sidebar-collapsed .side-foot { width:58px; }
+@media(max-width:1180px){.sidebar{width:270px}main{margin-left:270px}.sidebar-collapsed .sidebar{width:82px}.sidebar-collapsed main{margin-left:82px}}

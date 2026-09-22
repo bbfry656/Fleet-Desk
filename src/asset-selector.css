@@ -10,6 +10,7 @@
 .asset-upgrade-option.locked { opacity: .72; }
 .asset-upgrade-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(255,255,255,.07); font-size: 17px; }
 .asset-upgrade-icon img { width: 21px; height: 21px; color: currentColor; }
+.asset-upgrade-icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .asset-upgrade-option b { display: block; margin-bottom: 5px; font-size: 12px; }
 .asset-upgrade-option small { display: block; margin: -2px 0 5px; color: var(--muted); font-size: 9px; }
 .asset-upgrade-option select { padding: 6px 7px; border-radius: 7px; font-size: 11px; }

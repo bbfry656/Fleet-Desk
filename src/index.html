@@ -12,8 +12,7 @@
 </head>
 <body>
   <aside class="sidebar">
-    <div class="brand"><span class="brand-mark">FD</span><div><b>FLEET DESK</b></div></div>
-    <div class="profile-box"><small>СЕРВЕР</small><select id="serverSelect" class="server-select"></select><small>ПЕРСОНАЖ</small><div><select id="profileSelect"></select><button type="button" id="addProfileBtn" title="Добавить персонажа">＋</button></div></div>
+    <div class="account-head"><button type="button" class="account-card" id="accountSwitcherBtn"><span class="account-avatar" id="accountAvatar">FD</span><span><b id="accountName">Fleet Desk</b><small id="accountServer">Memphis · Персонаж</small></span></button><button type="button" class="account-logout" id="accountLogoutBtn" title="Сменить аккаунт">↪</button></div>
     <nav id="nav">
       <button class="nav-item active" data-view="dashboard"><span>⌂</span>Главная</button>
       <button class="nav-item" data-view="garage"><span>▦</span>Гараж</button>
@@ -22,21 +21,13 @@
       <button class="nav-item" data-view="reseller"><span>⇄</span>Калькулятор прибыли</button>
       <button class="nav-item" data-view="photos"><span>▣</span>Фото</button>
     </nav>
-    <div class="side-foot">
-      <label class="theme-picker">ТЕМА<select id="themeSelect"><option value="system">Как в Windows</option><option value="dark">Тёмная</option><option value="light">Светлая</option></select></label>
-      <div class="update-box"><small id="updateStatus">Проверка обновлений при запуске</small><button class="ghost wide" type="button" id="checkUpdateBtn">Проверить обновления</button><button class="primary wide" type="button" id="installUpdateBtn" hidden>Перезапустить и обновить</button></div>
-      <button class="ghost wide" id="editBalanceBtn">Изменить баланс</button>
-      <button class="ghost wide danger" id="resetProfileBtn">Сбросить статистику</button>
-      <button class="ghost wide" id="exportBtn">Экспорт базы</button>
-      <button class="ghost wide" id="importBtn">Импорт базы</button>
-      <small>Все данные хранятся на этом ПК</small>
-    </div>
+    <div class="side-foot"><button type="button" class="nav-item settings-button" id="settingsBtn"><span>⚙</span>Настройки</button></div>
   </aside>
 
   <main>
     <header>
       <div><p class="eyebrow">ПАНЕЛЬ УПРАВЛЕНИЯ</p><h1 id="viewTitle">Обзор автопарка</h1></div>
-      <div class="header-actions"><div class="cash-pill"><span>Баланс</span><strong id="headerCash">$0</strong></div><button class="primary" id="quickAdd" data-action="vehicle" hidden>+ Добавить авто</button></div>
+      <div class="header-actions"><div class="cash-pill"><span>Баланс</span><strong id="headerCash">$0</strong><button type="button" id="editBalanceBtn" title="Изменить баланс">⚙</button></div><button class="primary" id="quickAdd" data-action="vehicle" hidden>+ Добавить авто</button></div>
     </header>
 
     <section class="view active" id="dashboardView">
@@ -87,6 +78,9 @@
   <dialog id="dealDialog"><form id="dealForm" class="modal"><div class="modal-head"><div><p class="eyebrow">СДЕЛКА</p><h2>Добавить запись</h2></div><button type="button" class="icon-btn" data-close-dialog aria-label="Закрыть">×</button></div><div class="form-grid"><label>Тип сделки<select name="type"><option value="purchase">Покупка</option><option value="sale">Продажа</option></select></label><label>Транспорт<select name="vehicleId" id="dealVehicle"></select></label><label>Сумма<input name="amount" type="text" inputmode="numeric" data-money required placeholder="2 500 000"></label><label>Дата<input name="date" type="date" required></label></div><label>Комментарий<input name="note" placeholder="Необязательно"></label><div class="modal-actions"><button type="button" class="ghost" data-close-dialog>Отмена</button><button type="submit" class="primary">Добавить сделку</button></div></form></dialog>
 
   <dialog id="profileDialog"><form id="profileForm" class="modal compact-modal"><div class="modal-head"><div><p class="eyebrow">ПЕРСОНАЖИ</p><h2>Добавить персонажа</h2></div><button type="button" class="icon-btn" data-close-dialog aria-label="Закрыть">×</button></div><label>Имя персонажа<input name="name" required maxlength="40" autocomplete="off" placeholder="Например, Персонаж 2"></label><div class="modal-actions"><button type="button" class="ghost" data-close-dialog>Отмена</button><button type="submit" class="primary">Добавить</button></div></form></dialog>
+  <dialog id="accountDialog"><div class="modal compact-modal account-modal"><div class="modal-head"><div><p class="eyebrow">АККАУНТ</p><h2>Сменить персонажа</h2></div><button type="button" class="icon-btn" data-close-dialog aria-label="Закрыть">×</button></div><label>Сервер<select id="serverSelect" class="server-select"></select></label><div id="accountProfileList" class="account-profile-list"></div><select id="profileSelect" hidden></select><button type="button" id="addProfileBtn" class="ghost wide">＋ Добавить персонажа</button></div></dialog>
+  <dialog id="settingsDialog"><div class="modal compact-modal settings-modal"><div class="modal-head"><div><p class="eyebrow">FLEET DESK</p><h2>Настройки</h2></div><button type="button" class="icon-btn" data-close-dialog aria-label="Закрыть">×</button></div><section class="settings-section account-settings"><b>Локальный аккаунт</b><div><button type="button" class="account-avatar account-avatar-edit" id="accountAvatarEdit" title="Выбрать аватар">FD</button><label>Название аккаунта<input id="accountNameInput" maxlength="40" autocomplete="off"></label></div><input type="file" id="accountAvatarFile" accept="image/png,image/jpeg,image/webp" hidden><button type="button" class="ghost wide" id="saveAccountBtn">Сохранить профиль</button></section><label class="theme-picker">Тема интерфейса<select id="themeSelect"><option value="system">Как в Windows</option><option value="dark">Тёмная</option><option value="light">Светлая</option></select></label><section class="settings-section"><b>Обновления</b><small id="updateStatus">Проверка обновлений при запуске</small><button class="ghost wide" type="button" id="checkUpdateBtn">Проверить обновления</button><button class="primary wide" type="button" id="installUpdateBtn" hidden>Перезапустить и обновить</button></section><section class="settings-section settings-data"><b>Локальные данные</b><button class="ghost wide danger" id="resetProfileBtn">Сбросить статистику персонажа</button><div><button class="ghost" id="exportBtn">Экспорт базы</button><button class="ghost" id="importBtn">Импорт базы</button></div></section><p class="privacy-note">Все аккаунты, персонажи и данные хранятся только на этом устройстве. Fleet Desk не собирает и не отправляет личную информацию.</p></div></dialog>
+  <aside class="update-ready-toast" id="updateReadyToast" hidden><span>✓</span><div><b>Новая версия готова</b><small id="updateReadyVersion">Перезапустите Fleet Desk для установки</small></div><button type="button" id="updateReadyInstall" title="Перезапустить и установить">↻</button></aside>
 
   <dialog id="balanceDialog"><form id="balanceForm" class="modal compact-modal"><div class="modal-head"><div><p class="eyebrow">ФИНАНСЫ</p><h2>Изменить баланс</h2></div><button type="button" class="icon-btn" data-close-dialog aria-label="Закрыть">×</button></div><label>Свободный баланс<input name="amount" type="text" inputmode="numeric" data-money required></label><div class="modal-actions"><button type="button" class="ghost" data-close-dialog>Отмена</button><button type="submit" class="primary">Сохранить</button></div></form></dialog>
 
