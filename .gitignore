@@ -1,0 +1,54 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+__pycache__
+node_modules
+build
+*.local
+.external/db-updater/build
+.external/db-updater/node_modules
+.external/db-updater/index.js
+bash.exe.stackdump
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+package-lock.json
+settings.local.json
+settings.json
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+.env.encrypted
+.env.backup
+
+# Corporate SSL certificate
+electronjs-org-chain.pem
+*.crt
+*.pem
+
+# Резервные копии миграции
+.backup/
+
+# Windows system files
+nul
+
+.claude/cache/
+.codex/cache/
+.codex/cache*
+.pnpm-store/

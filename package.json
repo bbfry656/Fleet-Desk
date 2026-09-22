@@ -5,6 +5,7 @@
   "main": "electron/main.js",
   "scripts": {
     "start": "electron .",
+    "dev": "electron . --dev",
     "pack:win": "electron-builder --win nsis",
     "pack:portable": "electron-builder --win portable",
     "publish:win": "electron-builder --win nsis --publish always"
