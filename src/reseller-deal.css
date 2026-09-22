@@ -20,7 +20,7 @@
 .reseller-mini-switch button.active { color: #fff; background: #292039; box-shadow: inset 0 0 0 1px #a748e2; }
 .reseller-deal-modal,
 .reseller-picker-grid,
-.reseller-category-tabs { scrollbar-width: thin; scrollbar-color: #9b43e8 #151923; }
+.reseller-category-tabs { scrollbar-width: thin; scrollbar-color: #3b4354 #151923; }
 .reseller-deal-modal::-webkit-scrollbar,
 .reseller-picker-grid::-webkit-scrollbar,
 .reseller-category-tabs::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -29,10 +29,10 @@
 .reseller-category-tabs::-webkit-scrollbar-track { background: #151923; }
 .reseller-deal-modal::-webkit-scrollbar-thumb,
 .reseller-picker-grid::-webkit-scrollbar-thumb,
-.reseller-category-tabs::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#df2cac,#794cf0); border: 2px solid #151923; border-radius: 999px; }
+.reseller-category-tabs::-webkit-scrollbar-thumb { background: #3b4354; border: 2px solid #151923; border-radius: 999px; }
 .reseller-deal-modal::-webkit-scrollbar-thumb:hover,
 .reseller-picker-grid::-webkit-scrollbar-thumb:hover,
-.reseller-category-tabs::-webkit-scrollbar-thumb:hover { background: #b04be9; }
+.reseller-category-tabs::-webkit-scrollbar-thumb:hover { background: #505a70; }
 @media(max-width:1000px) { .reseller-picker-grid { grid-template-columns: repeat(2,1fr); } }
 .reseller-card-compact { display: grid; grid-template-columns: minmax(240px,.8fr) minmax(520px,1.8fr) auto; gap: 16px; align-items: center; }
 .reseller-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }

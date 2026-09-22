@@ -1,0 +1,21 @@
+.reseller-history-day { display: grid; gap: 9px; }
+.reseller-history-day > h3 {
+  margin: 10px 2px 2px;
+  color: #cdd3e0;
+  font-size: 14px;
+}
+.reseller-commission-preview {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 11px 13px;
+  margin-bottom: 13px;
+  border: 1px solid #343b4b;
+  border-radius: 10px;
+  background: #0c1017;
+  color: var(--muted);
+  font-size: 12px;
+}
+.reseller-commission-preview b { color: #fff; }
