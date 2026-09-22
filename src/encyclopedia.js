@@ -39,7 +39,7 @@ function renderWikiInfo(data) {
   const item=wikiCatalog.find(x=>x.id===data.model)||{};
   const local=(window.VEHICLE_PRICES||{})[data.model]||{};
   const tileMap=Object.fromEntries((data.tiles||[]).map(x=>[x.label,x.value]));
-  const gov=local.govPrice||Number(String(tileMap['Гос. цена']||'').replace(/\D/g,''));
+  const gov=Number(String(tileMap['Гос. цена']||'').replace(/\D/g,''))||local.govPrice;
   const scrap=local.mcScrapPrice||local.scrapPrice||wikiNumeric(tileMap['Стоимость свалки'])||(gov?Math.round(gov/2):0);
   const tuning=data.tuning||{};
   const tuningTotal=['engine','box','breaks','turbo'].flatMap(k=>tuning[k]||[]).reduce((s,x)=>s+(+x||0),0);
@@ -53,7 +53,7 @@ async function openWikiVehicle(id) {
 function renderWikiInfoV2(data) {
   const item=wikiCatalog.find(x=>x.id===data.model)||{},local=(window.VEHICLE_PRICES||{})[data.model]||{};
   const tileMap=Object.fromEntries((data.tiles||[]).map(x=>[x.label,x.value]));
-  const gov=local.govPrice||Number(String(tileMap['Гос. цена']||'').replace(/\D/g,''));
+  const gov=Number(String(tileMap['Гос. цена']||'').replace(/\D/g,''))||local.govPrice;
   const saved=typeof state!=='undefined'?state.vehicles?.find(x=>x.catalogId===data.model):null;
   const scrap=+saved?.scrap||local.mcScrapPrice||local.scrapPrice||wikiNumeric(tileMap['Стоимость свалки'])||(gov?Math.round(gov/2):0);
   const tuning=data.tuning||{},tuningTotal=['engine','box','breaks','turbo'].flatMap(k=>tuning[k]||[]).reduce((s,x)=>s+(+x||0),0);

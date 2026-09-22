@@ -1,6 +1,6 @@
 {
   "name": "majestic-fleet-desktop",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Локальный менеджер автопарка, аренды и сделок Majestic RP",
   "main": "electron/main.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "directories": { "output": "release" },
     "files": ["electron/**/*", "src/**/*", "package.json"],
     "win": { "target": ["nsis"], "icon": "build/icon.ico" },
-    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true, "createStartMenuShortcut": true },
+    "nsis": { "oneClick": true, "perMachine": false, "runAfterFinish": true, "createDesktopShortcut": true, "createStartMenuShortcut": true },
     "publish": [{ "provider": "github", "owner": "bbfry656", "repo": "Fleet-Desk", "releaseType": "release" }]
   }
 }
