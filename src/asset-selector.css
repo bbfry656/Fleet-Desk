@@ -1,0 +1,18 @@
+.asset-name-field { grid-row: span 2; }
+.asset-name-field select { min-height: 146px; padding: 5px; }
+.asset-name-field select option { padding: 8px 10px; border-radius: 7px; }
+.asset-name-field select option:checked { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+.asset-upgrade-picker { grid-column: 1 / -1; margin-bottom: 13px; }
+.asset-upgrade-picker > span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 12px; font-weight: 700; }
+.asset-upgrade-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.asset-upgrade-option { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 9px; align-items: center; min-height: 64px; padding: 9px; border: 1px solid var(--line); border-radius: 11px; background: var(--panel2); }
+.asset-upgrade-option.active { border-color: var(--accent); background: linear-gradient(135deg, rgba(231,45,137,.23), rgba(139,61,255,.2)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); }
+.asset-upgrade-option.locked { opacity: .72; }
+.asset-upgrade-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(255,255,255,.07); font-size: 17px; }
+.asset-upgrade-icon img { width: 21px; height: 21px; color: currentColor; }
+.asset-upgrade-option b { display: block; margin-bottom: 5px; font-size: 12px; }
+.asset-upgrade-option small { display: block; margin: -2px 0 5px; color: var(--muted); font-size: 9px; }
+.asset-upgrade-option select { padding: 6px 7px; border-radius: 7px; font-size: 11px; }
+html[data-theme="light"] .asset-upgrade-option { background: #f4f5f8; }
+html[data-theme="light"] .asset-upgrade-option.active { background: linear-gradient(135deg, rgba(231,45,137,.14), rgba(139,61,255,.13)); }
+@media (max-width: 1100px) { .asset-upgrade-grid { grid-template-columns: repeat(2, 1fr); } }

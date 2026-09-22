@@ -1,5 +1,15 @@
 .stats { grid-template-columns: repeat(3, 1fr); }
-.assets-panel { padding: 20px; margin-bottom: 16px; }
+.dashboard-property-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, .8fr); gap: 16px; margin-bottom: 16px; align-items: stretch; }
+.assets-panel { padding: 20px; }
+.dashboard-garage-panel { padding: 20px; color: var(--text); text-align: left; display: grid; align-content: space-between; gap: 20px; transition: .18s ease; }
+.dashboard-garage-panel:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 16px 42px rgba(231,45,137,.12); }
+.dashboard-garage-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.dashboard-garage-head > span { color: #9aaeff; font-weight: 800; font-size: 13px; }
+.dashboard-garage-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.dashboard-garage-metrics > div { padding: 13px; border: 1px solid var(--line); border-radius: 11px; background: #0b0e14; }
+.dashboard-garage-metrics small { display: block; color: var(--muted); font-size: 10px; letter-spacing: .09em; }
+.dashboard-garage-metrics b { display: block; margin-top: 6px; font-size: 18px; }
+.dashboard-garage-hint { padding: 18px 12px; border: 1px dashed #303747; border-radius: 12px; color: var(--muted); text-align: center; font-size: 12px; line-height: 1.45; }
 .asset-panel-actions { display: flex; align-items: center; gap: 12px; }
 .asset-grid { display: grid; gap: 14px; }
 .asset-grid.asset-count-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -34,4 +44,65 @@
 .tax-payment-preview span { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); }
 .tax-payment-preview b { color: var(--text); }
 @media(max-width:1280px) { .asset-grid.asset-count-3 { grid-template-columns: repeat(2,minmax(0,1fr)); } .asset-grid.asset-count-3 .asset-card:last-child { grid-column: 1/-1; } }
-@media(max-width:1180px) { .stats { grid-template-columns: repeat(3,1fr); } .asset-grid { grid-template-columns: 1fr!important; } .asset-card { grid-column: 1!important; } .asset-panel-actions { align-items: flex-end; flex-direction: column; gap: 6px; } }
+@media(max-width:1180px) { .stats { grid-template-columns: repeat(3,1fr); } .dashboard-property-row { grid-template-columns: 1fr; } .asset-grid { grid-template-columns: 1fr!important; } .asset-card { grid-column: 1!important; } .asset-panel-actions { align-items: flex-end; flex-direction: column; gap: 6px; } }
+html[data-theme="light"] .dashboard-garage-metrics > div { background: #f4f5f8; }
+
+/* Compact property hub */
+.property-hub { padding: 20px; margin-bottom: 16px; }
+.property-hub-head { margin-bottom: 16px; }
+.property-hub-actions { display:flex; align-items:center; gap:10px; }
+.property-edit-toggle { width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:#171b24; color:var(--muted); font-size:19px; transition:.2s ease; }
+.property-edit-toggle:hover,.property-edit-toggle.active { color:#fff; border-color:var(--accent); background:rgba(223,44,172,.14); transform:rotate(45deg); }
+.property-add-button { height:42px; width:42px; overflow:hidden; display:flex; align-items:center; justify-content:flex-start; gap:9px; padding:0 12px; border:0; border-radius:22px; background:#28cf94; color:#07120e; white-space:nowrap; transition:width .3s cubic-bezier(.2,.8,.2,1),transform .3s ease,box-shadow .2s ease; }
+.property-add-button span { flex:0 0 18px; font-size:22px; line-height:1; transition:transform .3s ease; }
+.property-add-button b { opacity:0; transform:translateX(10px); transition:.2s ease; }
+.property-add-button:hover,.property-add-button:focus-visible { width:190px; transform:translateX(-4px); box-shadow:0 10px 28px rgba(40,207,148,.22); }
+.property-add-button:hover span,.property-add-button:focus-visible span { transform:rotate(180deg); }
+.property-add-button:hover b,.property-add-button:focus-visible b { opacity:1; transform:none; }
+.property-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.property-card { min-width:0; min-height:210px; padding:16px; position:relative; display:flex; flex-direction:column; gap:14px; text-align:left; color:var(--text); border:1px solid var(--line); border-radius:16px; background:linear-gradient(145deg,#121620,#0c0f15); overflow:hidden; }
+button.property-card { font:inherit; }
+.property-card::after { content:""; position:absolute; width:95px; height:95px; right:-34px; top:-38px; border-radius:50%; background:rgba(139,92,246,.12); pointer-events:none; }
+.property-card:hover { border-color:#454e63; transform:translateY(-2px); }
+.property-garage { background:linear-gradient(145deg,rgba(47,212,167,.11),#0c0f15 58%); }
+.property-house,.property-apartment { background:linear-gradient(145deg,rgba(223,44,172,.09),#0c0f15 58%); }
+.property-business,.property-atm { background:linear-gradient(145deg,rgba(139,92,246,.12),#0c0f15 58%); }
+.property-card-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+.property-icon { width:43px; height:43px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(135deg,#8b5cf6,#df2cac); color:#fff; font-size:21px; box-shadow:0 8px 24px rgba(139,92,246,.18); }
+.property-card small { color:var(--muted); font-size:9px; letter-spacing:.09em; }
+.property-card h3 { margin-top:4px; font-size:18px; line-height:1.2; overflow:hidden; text-overflow:ellipsis; }
+.property-open { color:#9aaeff; font-size:12px; font-weight:800; }
+.property-tax { text-align:right; }
+.property-tax small,.property-tax b { display:block; }
+.property-tax b { margin-top:4px; font-size:14px; }
+.property-garage-value { margin-top:auto; padding:11px; border:1px solid #252b37; border-radius:10px; background:rgba(7,9,14,.5); }
+.property-garage-value small,.property-garage-value b { display:block; }
+.property-garage-value b { margin-top:5px; font-size:17px; }
+.property-details { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; }
+.property-details span { padding:8px 9px; border:1px solid #252b37; border-radius:9px; background:rgba(7,9,14,.46); }
+.property-details small,.property-details b { display:block; }
+.property-details b { margin-top:3px; font-size:13px; }
+.property-card-bottom { display:flex; align-items:end; justify-content:space-between; gap:8px; margin-top:auto; }
+.property-card-bottom small,.property-card-bottom b { display:block; }
+.property-card-bottom b { margin-top:3px; font-size:13px; }
+.property-tax-button { padding:8px 10px; border:1px solid rgba(139,92,246,.55); border-radius:9px; background:rgba(139,92,246,.12); color:#eee8ff; font-weight:800; }
+.property-tax-button:disabled { opacity:.4; }
+.property-edit-actions { display:none; position:absolute; z-index:3; right:10px; top:10px; gap:5px; }
+.property-edit-actions button { width:31px; height:31px; border:1px solid var(--line); border-radius:50%; background:#1b202b; color:#fff; }
+.property-edit-actions .danger { color:#ff5777; }
+.property-grid.is-editing .property-card:not(.property-garage) { animation:propertyWiggle .16s ease-in-out infinite alternate; border-color:rgba(223,44,172,.38); }
+.property-grid.is-editing .property-edit-actions { display:flex; }
+@keyframes propertyWiggle { from{transform:rotate(-.35deg)} to{transform:rotate(.35deg)} }
+.asset-type-modal { width:min(720px,calc(100vw - 32px)); }
+.asset-type-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:11px; }
+.asset-type-grid button { min-height:145px; padding:18px; display:grid; place-content:center; gap:7px; text-align:center; border:1px solid var(--line); border-radius:15px; background:linear-gradient(145deg,#151925,#0c0f15); color:var(--text); transition:.18s ease; }
+.asset-type-grid button:hover { border-color:var(--accent); transform:translateY(-3px); box-shadow:0 14px 32px rgba(223,44,172,.12); }
+.asset-type-grid button span { width:46px; height:46px; margin:auto; display:grid; place-items:center; border-radius:13px; background:linear-gradient(135deg,#8b5cf6,#df2cac); font-size:22px; }
+.asset-type-grid button b { font-size:16px; }
+.asset-type-grid button small { color:var(--muted); }
+.asset-type-grid button:last-child { grid-column:2; }
+.asset-catalog-tools { display:grid; grid-template-columns:minmax(0,1fr) 150px; gap:8px; }
+html[data-theme="light"] .property-card,html[data-theme="light"] .asset-type-grid button { background:#fff; }
+html[data-theme="light"] .property-details span,html[data-theme="light"] .property-garage-value { background:#f4f5f8; }
+@media(max-width:1200px){.property-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.property-grid,.asset-type-grid{grid-template-columns:1fr}.asset-type-grid button:last-child{grid-column:auto}.asset-catalog-tools{grid-template-columns:1fr}.property-add-button:hover{width:170px}}

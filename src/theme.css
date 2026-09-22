@@ -220,3 +220,77 @@ html {
 @media (max-width: 1250px) {
   .catalog-grid { grid-template-columns: repeat(4, minmax(130px, 1fr)); }
 }
+
+.theme-picker {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.theme-picker select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel2);
+  color: var(--text);
+  padding: 9px 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+html[data-theme="light"] {
+  --bg: #f3f4f8;
+  --panel: #ffffff;
+  --panel2: #f8f8fb;
+  --line: #d9dce5;
+  --muted: #6f7483;
+  --text: #171821;
+  --green: #079b78;
+  --red: #d93355;
+  --amber: #b66a00;
+  --shadow: 0 18px 50px rgba(32, 34, 45, .09);
+}
+
+html[data-theme="light"] body { background: radial-gradient(circle at 75% -20%, rgba(231,45,137,.08), transparent 35%), var(--bg); }
+html[data-theme="light"] .sidebar { background: rgba(250, 250, 253, .97); }
+html[data-theme="light"] .panel,
+html[data-theme="light"] .stat,
+html[data-theme="light"] .reseller-card,
+html[data-theme="light"] .reseller-workspace-column,
+html[data-theme="light"] .reseller-history-day,
+html[data-theme="light"] .reseller-history-row,
+html[data-theme="light"] .reseller-day-row,
+html[data-theme="light"] .history-item,
+html[data-theme="light"] .rental-card,
+html[data-theme="light"] .deal-chip,
+html[data-theme="light"] .modal,
+html[data-theme="light"] .cash-pill,
+html[data-theme="light"] .search,
+html[data-theme="light"] .profile-box { background: var(--panel); color: var(--text); }
+html[data-theme="light"] .mini-car,
+html[data-theme="light"] .car-card,
+html[data-theme="light"] .metric,
+html[data-theme="light"] .reseller-metrics > div,
+html[data-theme="light"] .reseller-selected,
+html[data-theme="light"] .reseller-commission-preview,
+html[data-theme="light"] .reseller-history-day-items .reseller-history-row,
+html[data-theme="light"] .catalog-card,
+html[data-theme="light"] .catalog-card > div { background: #f6f7fa; color: var(--text); }
+html[data-theme="light"] .ghost,
+html[data-theme="light"] .icon-btn,
+html[data-theme="light"] .segmented,
+html[data-theme="light"] .segmented button,
+html[data-theme="light"] .profile-box select,
+html[data-theme="light"] .profile-box button,
+html[data-theme="light"] .modal input,
+html[data-theme="light"] .modal select,
+html[data-theme="light"] .modal textarea,
+html[data-theme="light"] .theme-picker select { background: #f4f5f8; color: var(--text); }
+html[data-theme="light"] .nav-item:hover,
+html[data-theme="light"] .nav-item.active { color: var(--text); }
+html[data-theme="light"] .search input { color: var(--text); }
+html[data-theme="light"] dialog { color: var(--text); }
+html[data-theme="light"] dialog::backdrop { background: rgba(30, 31, 40, .35); }

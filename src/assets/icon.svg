@@ -11,6 +11,8 @@
   </defs>
   <rect x="22" y="22" width="468" height="468" rx="112" fill="#0b0c11"/>
   <rect x="38" y="38" width="436" height="436" rx="99" fill="url(#bg)"/>
-  <path d="M123 132h130v56H183v51h61v54h-61v94h-60V132Z" fill="url(#shine)"/>
-  <path d="M270 132h72c65 0 103 46 103 127s-38 128-103 128h-72V132Zm61 56v143h15c27 0 39-23 39-72 0-48-12-71-39-71h-15Z" fill="url(#shine)"/>
+  <g transform="translate(-28 0)">
+    <path d="M123 132h130v56H183v51h61v54h-61v94h-60V132Z" fill="url(#shine)"/>
+    <path d="M270 132h72c65 0 103 46 103 127s-38 128-103 128h-72V132Zm61 56v143h15c27 0 39-23 39-72 0-48-12-71-39-71h-15Z" fill="url(#shine)"/>
+  </g>
 </svg>
