@@ -1,0 +1,21 @@
+.sidebar {
+  height: 100vh;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #3b4354 transparent;
+}
+
+.sidebar::-webkit-scrollbar { width: 7px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb {
+  background: #3b4354;
+  border-radius: 999px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover { background: #505a70; }
+
+.brand,
+.side-foot { flex: 0 0 auto; }
+.side-foot { padding-bottom: 2px; }

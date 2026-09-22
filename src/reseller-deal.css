@@ -13,3 +13,10 @@
 .reseller-selected { padding: 11px 13px; margin: 8px 0 12px; border: 1px solid var(--line); border-radius: 10px; background: #0c1017; color: var(--muted); }
 .reseller-selected b { color: #fff; }
 @media(max-width:1000px) { .reseller-picker-grid { grid-template-columns: repeat(2,1fr); } }
+.reseller-card-compact { display: grid; grid-template-columns: minmax(240px,.8fr) minmax(520px,1.8fr) auto; gap: 16px; align-items: center; }
+.reseller-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+.reseller-metrics>div { padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: #0c1017; }
+.reseller-metrics small { display: block; color: var(--muted); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; }
+.reseller-metrics b { display: block; margin-top: 5px; font-size: 14px; }
+.reseller-card-actions { display: grid; gap: 8px; min-width: 110px; }
+@media(max-width:1150px) { .reseller-card-compact { grid-template-columns: 1fr; } .reseller-card-actions { grid-template-columns: 1fr 1fr; } }

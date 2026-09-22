@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="extra.css"><link rel="stylesheet" href="mc-prices.css">
   <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="encyclopedia.css"><link rel="stylesheet" href="encyclopedia-modules.css"><link rel="stylesheet" href="reseller.css"><link rel="stylesheet" href="reseller-deal.css">
+  <link rel="stylesheet" href="encyclopedia.css"><link rel="stylesheet" href="encyclopedia-modules.css"><link rel="stylesheet" href="reseller.css"><link rel="stylesheet" href="reseller-deal.css"><link rel="stylesheet" href="sidebar-fix.css">
 </head>
 <body>
   <aside class="sidebar">
@@ -75,6 +75,7 @@
     <section class="view" id="encyclopediaView">
       <div class="wiki-toolbar"><div><p class="eyebrow">БАЗА ЗНАНИЙ</p><h2 id="wikiHeading">Энциклопедия транспорта</h2></div><div class="search wiki-search"><span>⌕</span><input id="wikiSearch" placeholder="Марка, модель или ID транспорта"></div></div>
       <div class="wiki-kind-tabs" id="wikiKindTabs"><button class="active" data-wiki-kind="vehicles">Транспорт</button><button data-wiki-kind="items">Предметы</button><button data-wiki-kind="clothes">Одежда</button><button data-wiki-kind="homes">Дома и квартиры</button><button data-wiki-kind="offices">Офисы и склады</button><button data-wiki-kind="businesses">Бизнесы</button><button data-wiki-kind="atms">Банкоматы</button></div>
+      <div class="wiki-gender-switch" id="wikiGenderSwitch" hidden><span>Пол персонажа</span><div><button class="active" data-wiki-gender="male" aria-label="Мужская одежда">♂ <b>Мужская</b></button><button data-wiki-gender="female" aria-label="Женская одежда">♀ <b>Женская</b></button></div></div>
       <div class="wiki-layout"><aside class="panel wiki-list" id="wikiList"></aside><div class="wiki-content" id="wikiContent"><div class="wiki-welcome"><b>Выберите транспорт</b><span>Характеристики, цены, тюнинг, покраска, обвесы и винилы — в одной чистой карточке.</span></div></div></div>
     </section>
     <section class="view" id="resellerView"><div class="toolbar"><div><p class="eyebrow">УЧЁТ ИМУЩЕСТВА</p><h2>Калькулятор перекупа</h2></div><button class="primary" id="newResellerDealBtn">+ Добавить сделку</button></div><div class="reseller-summary" id="resellerSummary"></div><div class="reseller-list" id="resellerList"></div></section>
