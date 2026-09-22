@@ -1,0 +1,18 @@
+.update-install-dialog { border: 0; background: transparent; color: #fff; }
+.update-install-dialog::backdrop { background: rgba(3,4,8,.86); backdrop-filter: blur(12px); }
+.update-install-card { width:min(520px,calc(100vw - 48px)); padding:28px; overflow:hidden; position:relative; text-align:center; border:1px solid #343b4d; border-radius:22px; background:radial-gradient(circle at 50% -20%,rgba(184,55,229,.24),transparent 48%),#11151d; box-shadow:0 35px 110px rgba(0,0,0,.7); }
+.update-brand { display:flex; align-items:center; gap:12px; text-align:left; }
+.update-brand small,.update-brand b { display:block; }
+.update-brand small { color:#9ca5b8; font-size:10px; letter-spacing:.18em; }
+.update-brand b { margin-top:3px; font-size:15px; }
+.update-orbit { width:96px; height:96px; display:grid; place-items:center; position:relative; margin:30px auto 22px; border-radius:50%; background:#171c26; box-shadow:0 0 45px rgba(182,56,230,.22); }
+.update-orbit b { font-size:24px; }
+.update-orbit span { position:absolute; inset:-5px; border-radius:50%; border:3px solid transparent; border-top-color:#e22eae; border-right-color:#824af0; animation:update-spin .9s linear infinite; }
+.update-install-card h2 { font-size:24px; }
+.update-install-card p { margin:8px 0 22px; color:#9ca5b8; }
+.update-install-progress { height:8px; overflow:hidden; border-radius:999px; background:#090c12; border:1px solid #282e3c; }
+.update-install-progress i { display:block; width:12%; height:100%; border-radius:inherit; background:linear-gradient(90deg,#e22eae,#824af0); transition:width .45s ease; box-shadow:0 0 18px rgba(214,47,193,.6); }
+.update-install-steps { display:grid; grid-template-columns:repeat(3,1fr); margin-top:12px; color:#646d80; font-size:11px; }
+.update-install-steps span.active { color:#fff; }
+.update-install-note { display:block; margin-top:24px; color:#70798c; }
+@keyframes update-spin { to { transform:rotate(360deg); } }

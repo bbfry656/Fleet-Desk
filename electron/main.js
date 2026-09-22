@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell, Notification } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const fs = require('fs');
@@ -144,6 +144,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  if (process.platform === 'win32') app.setAppUserModelId('com.fleetdesk.app');
   ipcMain.handle('update:check', async () => {
     if (!app.isPackaged) return updateStatus('development');
     try { await autoUpdater.checkForUpdates(); } catch (error) { updateStatus('error', error?.message); }
@@ -183,6 +184,10 @@ app.whenReady().then(() => {
   });
   ipcMain.handle('wiki:vehicle', async (_event, model) => loadWikiVehicle(model));
   ipcMain.handle('wiki:catalog', async (_event, payload) => loadWikiCatalog(payload?.kind,payload?.query,payload?.page));
+  ipcMain.on('notification:show', (_event, payload) => {
+    if (!Notification.isSupported() || !payload?.title) return;
+    new Notification({ title: String(payload.title), body: String(payload.body || ''), silent: true }).show();
+  });
 
   createWindow();
   if (app.isPackaged) setTimeout(() => autoUpdater.checkForUpdates().catch(error => updateStatus('error', error?.message)), 5000);

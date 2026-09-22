@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld('desktop', {
   getWikiCatalog: (kind, query, page = 1) => ipcRenderer.invoke('wiki:catalog', { kind, query, page }),
   checkForUpdates: () => ipcRenderer.invoke('update:check'),
   installUpdate: () => ipcRenderer.send('update:install'),
+  showNotification: (payload) => ipcRenderer.send('notification:show', payload),
   onUpdateStatus: (callback) => ipcRenderer.on('update:status', (_event, payload) => callback(payload))
 });
